@@ -3,9 +3,9 @@
 //
 
 #include "ast_node_definition.hpp"
-#include "../Context/llvm_assist_context.hpp"
+#include "llvm_assist_context.hpp"
 #include "ast_node_inner_type.hpp"
-#include "Context/analyze_context.hpp"
+#include "analyze_context.hpp"
 
 namespace Compiler::AST{
     Definition::Definition(Base* leftValue, Base* initializerValue) : leftValue(leftValue), initialValue(initializerValue) {

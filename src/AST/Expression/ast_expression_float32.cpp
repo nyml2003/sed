@@ -3,8 +3,8 @@
 //
 
 #include "ast_expression_float32.hpp"
-#include "Context/llvm_assist_context.hpp"
-#include "Context/analyze_context.hpp"
+#include "../Context/llvm_assist_context.hpp"
+#include "../Context/analyze_context.hpp"
 
 namespace Compiler::AST::Expression {
     Float32::Float32(float value) : value(value) {}

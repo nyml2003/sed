@@ -6,8 +6,8 @@
 #include "ast_expression_boolean.hpp"
 #include "ast_expression_int32.hpp"
 #include "ast_expression_float32.hpp"
-#include "Context/llvm_assist_context.hpp"
-#include "Context/analyze_context.hpp"
+#include "../Context/llvm_assist_context.hpp"
+#include "../Context/analyze_context.hpp"
 
 namespace Compiler::AST::Expression {
     static Base *eval(Operator op, Base *left, Base *right) {

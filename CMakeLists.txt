@@ -14,20 +14,24 @@ add_definitions(${LLVM_DEFINITIONS})
 # flex and bison config
 find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
-BISON_TARGET(parser src/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/parser.hpp)
-FLEX_TARGET(scanner src/scanner.l ${CMAKE_CURRENT_BINARY_DIR}/scanner.cpp)
+BISON_TARGET(parser src/Driver/parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/parser.hpp)
+FLEX_TARGET(scanner src/Driver/scanner.l ${CMAKE_CURRENT_BINARY_DIR}/scanner.cpp)
 ADD_FLEX_BISON_DEPENDENCY(scanner parser)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/AST)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/Context)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/Driver)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/AST/Expression)
+include_directories()
 set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-value -Wno-unused-label -Wno-unused-local-typedefs -Wno-unused-private-field")
 
 add_executable(sed main.cpp
         ${llvm_libs}
         ${BISON_parser_OUTPUTS}
         ${FLEX_scanner_OUTPUTS}
-        src/Driver.cpp
-        src/Driver.hpp
+        src/Driver/Driver.cpp
+        src/Driver/Driver.hpp
         src/AST/Expression/ast_expression_base.cpp
         src/AST/Expression/ast_expression_base.hpp
         src/AST/ast_node_base.cpp
@@ -61,14 +65,28 @@ add_executable(sed main.cpp
         src/Context/llvm_assist_context.hpp
         src/Context/analyze_context.cpp
         src/Context/analyze_context.hpp
-        src/AST/ast_node_left_value.cpp
-        src/AST/ast_node_left_value.hpp
-        src/AST/ast_node_initial_value.cpp
-        src/AST/ast_node_initial_value.hpp
+        src/AST/Expression/ast_expression_left_value.cpp
+        src/AST/Expression/ast_expression_left_value.hpp
+        src/AST/Expression/ast_expression_initial_value.cpp
+        src/AST/Expression/ast_expression_initial_value.hpp
         src/AST/ast_node_block.cpp
         src/AST/ast_node_block.hpp
         src/AST/ast_node_function_definition.cpp
         src/AST/ast_node_function_definition.hpp
+        src/AST/ast_node_assignment_Statement.cpp
+        src/AST/ast_node_assignment_Statement.hpp
+        src/AST/ast_node_expression_statement.cpp
+        src/AST/ast_node_expression_statement.hpp
+        src/AST/ast_node_if_statement.cpp
+        src/AST/ast_node_if_statement.hpp
+        src/AST/ast_node_while_statement.cpp
+        src/AST/ast_node_while_statement.hpp
+        src/AST/ast_node_break_statement.cpp
+        src/AST/ast_node_break_statement.hpp
+        src/AST/ast_node_continue_statement.cpp
+        src/AST/ast_node_continue_statement.hpp
+        src/AST/ast_node_return_statement.cpp
+        src/AST/ast_node_return_statement.hpp
 
 )
 

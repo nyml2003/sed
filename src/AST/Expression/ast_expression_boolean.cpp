@@ -3,7 +3,8 @@
 //
 
 #include "ast_expression_boolean.hpp"
-
+#include "llvm_assist_context.hpp"
+#include "analyze_context.hpp"
 namespace Compiler::AST::Expression
 {
     Boolean::Boolean(bool value) : value(value) {}
@@ -15,12 +16,12 @@ namespace Compiler::AST::Expression
 
     void Boolean::toLLVM()
     {
-        llvmAssistContext.valueStack.push_back(llvm::ConstantInt::get(llvm::Type::getInt1Ty(llvmAssistContext.context), value));
+        llvmAssistContext.values.push_back(llvm::ConstantInt::get(llvm::Type::getInt1Ty(*llvmAssistContext.context), value));
     }
 
     void Boolean::analyze()
     {
-        analyzeContext.expressionStack.push(this);
+        analyzeContext.expressions.push_back(this);
     }
 
     EXPRESSION_TYPE Boolean::getType()

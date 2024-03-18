@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include "Driver.hpp"
-#include <fstream>
 namespace Compiler::Core {
 
     Driver::Driver(bool traceScanning, bool traceParsing) : traceScanning(traceScanning), traceParsing(traceParsing) {}

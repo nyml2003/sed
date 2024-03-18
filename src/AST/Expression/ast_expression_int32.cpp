@@ -3,8 +3,8 @@
 //
 
 #include "ast_expression_int32.hpp"
-#include "Context/analyze_context.hpp"
-#include "Context/llvm_assist_context.hpp"
+#include "../Context/analyze_context.hpp"
+#include "../Context/llvm_assist_context.hpp"
 
 namespace Compiler::AST::Expression{
     Int32::Int32(int32_t value) : value(value) {}

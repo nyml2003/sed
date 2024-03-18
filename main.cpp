@@ -13,12 +13,12 @@ int main(int argc, char* argv[]) {
     driver.setTraceScanning(false);
     driver.parse();
     freopen(error.c_str(), "w", stderr);
-    driver.result->analyze();
+    // driver.result->analyze();
     std::cout << "```mermaid" << std::endl;
     std::cout << "graph TD" << std::endl;
     driver.result->toMermaid();
     std::cout << "```" << std::endl;
-    driver.setOutputFileName(ir);
-    driver.result->toLLVM();
+    // driver.setOutputFileName(ir);
+    // driver.result->toLLVM();
     return 0;
 }

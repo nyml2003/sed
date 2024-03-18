@@ -4,10 +4,14 @@
 
 #include <llvm/IR/BasicBlock.h>
 #include "ast_node_block.hpp"
-#include "Context/llvm_assist_context.hpp"
-#include "Context/analyze_context.hpp"
+#include "../Context/llvm_assist_context.hpp"
+#include "../Context/analyze_context.hpp"
 
 namespace Compiler::AST{
+    Block::Block() {
+        nodeType = NODE_TYPE::BLOCK;
+    }
+
     Block::Block(std::vector<Base*> statements) : statements(std::move(statements)) {
         nodeType = NODE_TYPE::BLOCK;
         begin = this->statements.front()->begin;

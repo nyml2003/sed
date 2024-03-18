@@ -2,10 +2,11 @@
 // Created by venty on 2024/3/18.
 //
 
-#include "ast_node_left_value.hpp"
+#include "ast_expression_left_value.hpp"
+#include "Expression/ast_expression_base.hpp"
 
-namespace Compiler::AST {
-    LeftValue::LeftValue(Base* leftValue, std::vector<Compiler::AST::Expression::Base*> index) {
+namespace Compiler::AST::Expression {
+    LeftValue::LeftValue(Base* leftValue, std::vector<Base*> index) {
         identifier = leftValue;
         this->index = index;
         begin = leftValue->begin;
@@ -48,5 +49,13 @@ namespace Compiler::AST {
                 std::cout << "Index should be integer" << std::endl;
             }
         }
+    }
+
+    EXPRESSION_TYPE LeftValue::getType() {
+        return identifier->getType();
+    }
+
+    Base* LeftValue::getValue() {
+        return identifier->getValue();
     }
 }
