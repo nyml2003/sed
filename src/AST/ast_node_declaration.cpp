@@ -3,10 +3,7 @@
 //
 
 #include "ast_node_declaration.hpp"
-
-#include <utility>
-#include "../Context/llvm_assist_context.hpp"
-#include "../Context/analyze_context.hpp"
+#include "analyze_context.hpp"
 namespace Compiler::AST{
     Declaration::Declaration(InnerType type, std::vector<Base*> definitions) : type(type), definitions(std::move(definitions)) {
         nodeType = NODE_TYPE::DECLARATION;

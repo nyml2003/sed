@@ -39,8 +39,8 @@ namespace Compiler::AST::Expression {
     }
 
     void InitialValue::analyze() {
-        for (size_t it = 0; it < children.size(); it++) {
-            children[it] = children[it]->getValue();
+        for (auto &child : children) {
+            child->analyze();
         }
     }
 

@@ -58,7 +58,6 @@ add_executable(sed main.cpp
         src/AST/ast_node_definition.cpp
         src/AST/ast_node_definition.hpp
         src/Context/context.hpp
-        src/Context/context.cpp
         src/Context/message.hpp
         src/Context/message.cpp
         src/Context/llvm_assist_context.cpp
@@ -73,8 +72,8 @@ add_executable(sed main.cpp
         src/AST/ast_node_block.hpp
         src/AST/ast_node_function_definition.cpp
         src/AST/ast_node_function_definition.hpp
-        src/AST/ast_node_assignment_Statement.cpp
-        src/AST/ast_node_assignment_Statement.hpp
+        src/AST/ast_node_assignment_statement.cpp
+        src/AST/ast_node_assignment_statement.hpp
         src/AST/ast_node_expression_statement.cpp
         src/AST/ast_node_expression_statement.hpp
         src/AST/ast_node_if_statement.cpp

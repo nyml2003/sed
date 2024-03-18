@@ -1,7 +1,7 @@
 #include "Driver.hpp"
 int main(int argc, char* argv[]) {
 
-    std::string folderName = "/app/tests/Assign-1/";
+    std::string folderName = "/app/tests/S1-result-1/";
     std::string input = (argc == 5) ? argv[1] : folderName + "in.sy";
     std::string md = (argc == 5) ? argv[2] : folderName + "out.md";
     std::string error = (argc == 5) ? argv[3] : folderName + "out.err";
@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     driver.setTraceScanning(false);
     driver.parse();
     freopen(error.c_str(), "w", stderr);
-    // driver.result->analyze();
+    //driver.result->analyze();
     std::cout << "```mermaid" << std::endl;
     std::cout << "graph TD" << std::endl;
     driver.result->toMermaid();

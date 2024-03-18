@@ -3,7 +3,6 @@
 //
 
 #include "ast_node_if_statement.hpp"
-#include "../Context/llvm_assist_context.hpp"
 
 namespace Compiler::AST{
     IfStatement::IfStatement(Expression::Base* condition, Base* thenBlock, Base* elseBlock) {
@@ -38,5 +37,13 @@ namespace Compiler::AST{
 
     void IfStatement::toLLVM() {
         //TODO
+    }
+
+    void IfStatement::analyze() {
+        condition->analyze();
+        thenBlock->analyze();
+        if (elseBlock) {
+            elseBlock->analyze();
+        }
     }
 }

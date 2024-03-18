@@ -5,9 +5,7 @@
 #include "analyze_context.hpp"
 
 namespace Compiler::Context {
-    AnalyzeContext::AnalyzeContext() {
-    }
+    AnalyzeContext::AnalyzeContext() = default;
 
-    AnalyzeContext::~AnalyzeContext() {
-    }
+    AnalyzeContext::~AnalyzeContext() = default;
 }

@@ -32,6 +32,5 @@ namespace Compiler::AST{
 
     void ReturnStatement::analyze() {
         expression = expression->getValue();
-        FunctionDefinition* function = analyzeContext.functions.back();
     }
 }

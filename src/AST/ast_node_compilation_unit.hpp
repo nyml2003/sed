@@ -12,7 +12,7 @@ namespace Compiler::AST {
         void toMermaid() override;
         void toLLVM() override;
         void analyze() override;
-        void attach(std::vector<Base*> children);
+        void attach(std::vector<Base*> t);
         std::vector<Base*> children;
     };
 }

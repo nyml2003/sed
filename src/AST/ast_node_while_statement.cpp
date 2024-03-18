@@ -24,4 +24,9 @@ namespace Compiler::AST{
     void WhileStatement::toLLVM() {
         //TODO
     }
+
+    void WhileStatement::analyze() {
+        condition->analyze();
+        block->analyze();
+    }
 }

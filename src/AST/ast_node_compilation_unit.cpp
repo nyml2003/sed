@@ -13,7 +13,7 @@ namespace Compiler::AST {
     void CompilationUnit::toMermaid() {
         std::cout << id << "[CompilationUnit]" << std::endl;
         for (size_t it = 0; it < children.size(); it++) {
-            std::cout << id << "-->" << children[it]->id << std::endl;
+            std::cout << id << "--" << it << "-->" << children[it]->id << std::endl;
             children[it]->toMermaid();
         }
     }
@@ -35,8 +35,8 @@ namespace Compiler::AST {
         analyzeContext.leave();
     }
 
-    void CompilationUnit::attach(std::vector<Base *> children) {
-        children = std::move(children);
+    void CompilationUnit::attach(std::vector<Base *> t) {
+        children = std::move(t);
         begin = children[0]->begin;
         end = children[children.size() - 1]->end;
     }

@@ -11,8 +11,6 @@ namespace Compiler::Context {
     }
 
     LLVMAssistContext::~LLVMAssistContext() {
-        delete context;
-        delete module;
-        delete builder;
+
     }
 } // Compiler

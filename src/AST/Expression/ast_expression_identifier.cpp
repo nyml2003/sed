@@ -3,8 +3,8 @@
 //
 
 #include "ast_expression_identifier.hpp"
-#include "../../Context/llvm_assist_context.hpp"
-#include "../../Context/analyze_context.hpp"
+#include "llvm_assist_context.hpp"
+#include "analyze_context.hpp"
 
 namespace Compiler::AST::Expression
 {

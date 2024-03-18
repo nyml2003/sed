@@ -4,8 +4,8 @@
 
 #include <llvm/IR/BasicBlock.h>
 #include "ast_node_block.hpp"
-#include "../Context/llvm_assist_context.hpp"
-#include "../Context/analyze_context.hpp"
+#include "llvm_assist_context.hpp"
+#include "analyze_context.hpp"
 
 namespace Compiler::AST{
     Block::Block() {

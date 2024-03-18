@@ -16,4 +16,8 @@ namespace Compiler::AST{
     void BreakStatement::toLLVM() {
         //TODO
     }
+
+    void BreakStatement::analyze() {
+        //TODO
+    }
 }

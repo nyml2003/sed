@@ -4,8 +4,8 @@
 
 #ifndef SED_ANALYZE_CONTEXT_HPP
 #define SED_ANALYZE_CONTEXT_HPP
-#include "../AST/Expression/ast_expression_base.hpp"
-#include "../AST/ast_node_inner_type.hpp"
+#include "ast_expression_base.hpp"
+#include "ast_node_inner_type.hpp"
 #include "context.hpp"
 #include "ast_node_function_definition.hpp"
 
