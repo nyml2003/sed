@@ -24,14 +24,51 @@ set(CMAKE_CXX_FLAGS "-std=c++17 -Wall -Wextra -Wno-unused-parameter -Wno-unused-
 
 add_executable(sed main.cpp
         ${llvm_libs}
-        src/AST.cpp
-        src/AST.hpp
         ${BISON_parser_OUTPUTS}
         ${FLEX_scanner_OUTPUTS}
         src/Driver.cpp
         src/Driver.hpp
-        src/Scope.cpp
-        src/Scope.hpp
+        src/AST/Expression/ast_expression_base.cpp
+        src/AST/Expression/ast_expression_base.hpp
+        src/AST/ast_node_base.cpp
+        src/AST/ast_node_base.hpp
+        src/AST/Expression/ast_expression_int32.cpp
+        src/AST/Expression/ast_expression_int32.hpp
+        src/AST/Expression/ast_expression_float32.cpp
+        src/AST/Expression/ast_expression_float32.hpp
+        src/AST/Expression/ast_expression_identifier.cpp
+        src/AST/Expression/ast_expression_identifier.hpp
+        src/AST/Expression/ast_expression_unary_expression.cpp
+        src/AST/Expression/ast_expression_unary_expression.hpp
+        src/AST/Expression/ast_expression_operator.hpp
+        src/AST/Expression/ast_expression_boolean.cpp
+        src/AST/Expression/ast_expression_boolean.hpp
+        src/AST/Expression/ast_expression_binary_expression.cpp
+        src/AST/Expression/ast_expression_binary_expression.hpp
+        src/AST/ast_node_compilation_unit.cpp
+        src/AST/ast_node_compilation_unit.hpp
+        src/AST/ast_node_declaration.cpp
+        src/AST/ast_node_declaration.hpp
+        src/AST/ast_node_inner_type.hpp
+        src/AST/ast_node_decorator.hpp
+        src/AST/ast_node_definition.cpp
+        src/AST/ast_node_definition.hpp
+        src/Context/context.hpp
+        src/Context/context.cpp
+        src/Context/message.hpp
+        src/Context/message.cpp
+        src/Context/llvm_assist_context.cpp
+        src/Context/llvm_assist_context.hpp
+        src/Context/analyze_context.cpp
+        src/Context/analyze_context.hpp
+        src/AST/ast_node_left_value.cpp
+        src/AST/ast_node_left_value.hpp
+        src/AST/ast_node_initial_value.cpp
+        src/AST/ast_node_initial_value.hpp
+        src/AST/ast_node_block.cpp
+        src/AST/ast_node_block.hpp
+        src/AST/ast_node_function_definition.cpp
+        src/AST/ast_node_function_definition.hpp
 
 )
 
