@@ -15,7 +15,7 @@ namespace Compiler::AST::Expression
 
     void Identifier::toMermaid()
     {
-        std::cout << "Identifier" << std::endl;
+        std::cout << id << "[" << "Identifier: " << name << "]" << std::endl;
     }
 
     /**

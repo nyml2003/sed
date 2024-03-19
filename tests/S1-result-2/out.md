@@ -1,15 +1,15 @@
 ```mermaid
 graph TD
-6[CompUnit]--0--->5
-5[FuncDef]
-5--retType-->0
-0[Type:int]
-5--ident-->1
-1[main]
-5--block-->4
-4[Block]
-4--0-->3
-3[ReturnStmt]
-3--expr-->2
-2[0]
+6[CompilationUnit]
+6--0-->4
+4[FunctionDefinition]
+4--returnType-->5[int]
+4--identifier-->0
+0[Identifier|name = main|]
+4--block-->3
+3[Block]
+3--statement0-->2
+2[ReturnStatement]
+2--expression-->1
+1[Int32: 0]
 ```
