@@ -4,6 +4,8 @@
 
 #include "ast_node_assignment_statement.hpp"
 #include "llvm_assist_context.hpp"
+#include "analyze_context.hpp"
+#include "ast_expression_identifier.hpp"
 
 namespace Compiler::AST{
     AssignmentStatement::AssignmentStatement(Expression::Base* leftValue, Expression::Base* expression) {
@@ -34,9 +36,12 @@ namespace Compiler::AST{
 
     void AssignmentStatement::analyze() {
         expression = expression->getValue();
-        if (leftValue->getType() != expression->getType()) {
+        if (leftValue->getType() != Expression::EXPRESSION_TYPE::UNDEFINED && leftValue->getType() != expression->getType()) {
             std::cout << "Type not match" << std::endl;
         }
         leftValue->analyze();
+
+        Expression::Identifier* identifier = dynamic_cast<Expression::Identifier*>(analyzeContext.expressions.back());
+        analyzeContext.set(identifier->name, expression);
     }
 }

@@ -5,6 +5,7 @@
 #include "ast_node_return_statement.hpp"
 #include "ast_node_function_definition.hpp"
 #include "../Context/analyze_context.hpp"
+#include "llvm_assist_context.hpp"
 
 namespace Compiler::AST{
     ReturnStatement::ReturnStatement() {
@@ -27,7 +28,13 @@ namespace Compiler::AST{
     }
 
     void ReturnStatement::toLLVM() {
-        //TODO
+        if (expression) {
+            expression->toLLVM();
+            llvm::Value* value = llvmAssistContext.values.back();
+            llvmAssistContext.builder->CreateRet(value);
+        } else {
+            llvmAssistContext.builder->CreateRetVoid();
+        }
     }
 
     void ReturnStatement::analyze() {

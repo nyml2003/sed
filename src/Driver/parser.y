@@ -98,7 +98,7 @@ Type:
 
 Def:
     Lval ASSIGN InitVal { $$ = new Compiler::AST::Definition($1,$3); }
-    | Lval { $$ = $1;}
+    | Lval { $$ = new Compiler::AST::Definition($1); }
     ;
 
 InitVal:

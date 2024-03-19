@@ -9,12 +9,13 @@
 #include <vector>
 namespace Compiler::AST{
     struct Definition : public Base {
-        explicit Definition(Base* leftValue, Base* initializerValue);
+        explicit Definition(Expression::Base *leftValue, Expression::Base *initialValue);
+        explicit Definition(Expression::Base *leftValue);
         void toMermaid() override;
         void toLLVM() override;
         void analyze() override;
-        Base* leftValue;
-        Base* initialValue;
+        Expression::Base* leftValue;
+        Expression::Base* initialValue;
     };
 }
 #endif //SED_AST_NODE_DEFINITION_HPP

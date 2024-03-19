@@ -4,9 +4,10 @@
 
 #include "ast_expression_left_value.hpp"
 #include "Expression/ast_expression_base.hpp"
+#include "analyze_context.hpp"
 
 namespace Compiler::AST::Expression {
-    LeftValue::LeftValue(Base* leftValue, std::vector<Base*> index) {
+    LeftValue::LeftValue(Base *leftValue, std::vector<Base *> index) {
         identifier = leftValue;
         this->index = index;
         begin = leftValue->begin;
@@ -14,7 +15,7 @@ namespace Compiler::AST::Expression {
         nodeType = NODE_TYPE::LEFT_VALUE;
     }
 
-    LeftValue::LeftValue(Base* leftValue) {
+    LeftValue::LeftValue(Base *leftValue) {
         identifier = leftValue;
         begin = leftValue->begin;
         end = leftValue->end;
@@ -40,14 +41,29 @@ namespace Compiler::AST::Expression {
 
     /**
      * @brief index应该都是整数
+     *
      */
     void LeftValue::analyze() {
         identifier->analyze();
-        for (auto &it : index) {
+        if (index.empty()) {
+            return;
+        }
+        for (auto &it: index) {
             it->analyze();
             if (it->getType() != Compiler::AST::Expression::EXPRESSION_TYPE::INT32) {
                 std::cout << "Index should be integer" << std::endl;
             }
+        }
+        switch (identifier->getType()) {
+            case Compiler::AST::Expression::EXPRESSION_TYPE::INT32:
+                analyzeContext.types.push_back(Compiler::AST::Expression::EXPRESSION_TYPE::INT32_ARRAY);
+                break;
+            case Compiler::AST::Expression::EXPRESSION_TYPE::FLOAT32:
+                analyzeContext.types.push_back(Compiler::AST::Expression::EXPRESSION_TYPE::FLOAT32_ARRAY);
+                break;
+            default:
+                std::cerr << "Unknown type" << std::endl;
+                exit(1);
         }
     }
 
@@ -55,7 +71,7 @@ namespace Compiler::AST::Expression {
         return identifier->getType();
     }
 
-    Base* LeftValue::getValue() {
+    Base *LeftValue::getValue() {
         return identifier->getValue();
     }
 }

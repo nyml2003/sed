@@ -86,6 +86,8 @@ add_executable(sed main.cpp
         src/AST/ast_node_continue_statement.hpp
         src/AST/ast_node_return_statement.cpp
         src/AST/ast_node_return_statement.hpp
+        src/AST/Expression/ast_expression_undefined.cpp
+        src/AST/Expression/ast_expression_undefined.hpp
 
 )
 

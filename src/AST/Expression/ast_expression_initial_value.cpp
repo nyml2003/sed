@@ -4,6 +4,7 @@
 
 #include "ast_expression_initial_value.hpp"
 #include "ast_expression_base.hpp"
+#include "analyze_context.hpp"
 
 namespace Compiler::AST::Expression {
     InitialValue::InitialValue(Base *child) : children({child}) {
@@ -39,8 +40,12 @@ namespace Compiler::AST::Expression {
     }
 
     void InitialValue::analyze() {
-        for (auto &child : children) {
-            child->analyze();
+        if (children.size() == 1) {
+            children[0]->analyze();
+            analyzeContext.types.push_back(children[0]->getType());
+        } else {
+            std::cerr << "Array not implemented" << std::endl;
+            exit(1);
         }
     }
 

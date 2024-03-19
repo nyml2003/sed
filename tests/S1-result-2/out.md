@@ -5,7 +5,7 @@ graph TD
 4[FunctionDefinition]
 4--returnType-->5[int]
 4--identifier-->0
-0[Identifier|name = main|]
+0[Identifier: main]
 4--block-->3
 3[Block]
 3--statement0-->2

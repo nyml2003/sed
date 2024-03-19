@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "ast_expression_base.hpp"
+#include "ast_expression_identifier.hpp"
 
 namespace Compiler::AST::Expression {
     struct LeftValue : public Base {
@@ -18,7 +19,7 @@ namespace Compiler::AST::Expression {
         EXPRESSION_TYPE getType() override;
         Base* getValue() override;
 
-        Base* identifier;
+        Compiler::AST::Expression::Identifier *identifier;
         std::vector<Base*> index;
     };
 }

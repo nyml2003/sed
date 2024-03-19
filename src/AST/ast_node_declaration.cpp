@@ -4,6 +4,8 @@
 
 #include "ast_node_declaration.hpp"
 #include "analyze_context.hpp"
+#include "llvm_assist_context.hpp"
+
 namespace Compiler::AST{
     Declaration::Declaration(InnerType type, std::vector<Base*> definitions) : type(type), definitions(std::move(definitions)) {
         nodeType = NODE_TYPE::DECLARATION;
@@ -24,6 +26,17 @@ namespace Compiler::AST{
     }
 
     void Declaration::toLLVM() {
+        switch(type){
+            case InnerType::INT:
+                llvmAssistContext.types.push_back(llvm::Type::getInt32Ty(*llvmAssistContext.context));
+                break;
+            case InnerType::FLOAT:
+                llvmAssistContext.types.push_back(llvm::Type::getFloatTy(*llvmAssistContext.context));
+                break;
+            default:
+                printLocation("Unknown type");
+                exit(1);
+        }
         for (auto definition : definitions) {
             definition->toLLVM();
         }
@@ -37,7 +50,18 @@ namespace Compiler::AST{
                 break;
             }
         }
-        analyzeContext.types.push_back(type);
+        switch(type){
+            case InnerType::INT:
+                analyzeContext.types.push_back(Expression::EXPRESSION_TYPE::INT32);
+                break;
+            case InnerType::FLOAT:
+                analyzeContext.types.push_back(Expression::EXPRESSION_TYPE::FLOAT32);
+                break;
+            default:
+                printLocation("Unknown type");
+                exit(1);
+        }
+
         for (auto definition : definitions) {
              if (hasConst) {
                  /**

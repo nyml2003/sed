@@ -13,6 +13,9 @@ namespace Compiler::AST::Expression {
         FLOAT32,
         BOOLEAN,
         UNKNOWN,
+        INT32_ARRAY,
+        FLOAT32_ARRAY,
+        UNDEFINED
     };
 
     struct Base : public Compiler::AST::Base {

@@ -5,68 +5,57 @@
 #include "ast_expression_identifier.hpp"
 #include "llvm_assist_context.hpp"
 #include "analyze_context.hpp"
+#include "ast_expression_undefined.hpp"
 
-namespace Compiler::AST::Expression
-{
-    Identifier::Identifier(std::string name)
-    {
+namespace Compiler::AST::Expression {
+    Identifier::Identifier(std::string name) {
         this->name = std::move(name);
     }
 
-    void Identifier::toMermaid()
-    {
+    void Identifier::toMermaid() {
         std::cout << id << "[" << "Identifier: " << name << "]" << std::endl;
     }
 
     /**
      * @brief
      *
-     * @details
+     * @details identifier是一个表达式，它的toLLVM方法会将它的值存入values中
      */
-    void Identifier::toLLVM()
-    {
-        bool isGlobal = llvmAssistContext.isGlobal();
-        llvm::Type* type =llvmAssistContext.types.back();
+    void Identifier::toLLVM() {
+        llvm::Type *type = llvmAssistContext.types.back();
         llvmAssistContext.types.pop_back();
-        if (isGlobal) {
-            Context::Message<llvm::Value*> message = llvmAssistContext.get(name);
-            if (message.success) {
-                auto* global = llvm::cast<llvm::GlobalVariable>(message.value);
-                llvm::Value* value = llvmAssistContext.builder->CreateLoad(global->getValueType(), global);
-                llvmAssistContext.values.push_back(value);
-            } else {
-                auto* global = new llvm::GlobalVariable(*llvmAssistContext.module, type, false, llvm::GlobalValue::ExternalLinkage, nullptr, name);
-                global->setAlignment(llvm::MaybeAlign(4));
-                llvmAssistContext.set(name, global);
-                llvmAssistContext.values.push_back(global);
-            }
+        Context::Message<llvm::Value *> message = llvmAssistContext.get(name);
+        if (message.success) {
+            llvmAssistContext.values.push_back(
+                    llvmAssistContext.builder->CreateLoad(type, message.value)
+            );
         } else {
-            Context::Message<llvm::Value*> message = llvmAssistContext.get(name);
-            if (message.success) {
-                auto* local = llvm::cast<llvm::AllocaInst>(message.value);
-                llvm::Value* value = llvmAssistContext.builder->CreateLoad(local->getAllocatedType(), local);
-                llvmAssistContext.values.push_back(value);
+            llvm::Value* value;
+            if (llvmAssistContext.isGlobal()) {
+                value = new llvm::GlobalVariable(*llvmAssistContext.module, type, false,
+                                                       llvm::GlobalValue::ExternalLinkage, nullptr, name);
             } else {
-                llvm::AllocaInst* local = llvmAssistContext.builder->CreateAlloca(type, nullptr, name);
-                llvmAssistContext.set(name, local);
-                llvmAssistContext.values.push_back(local);
+                value = llvmAssistContext.builder->CreateAlloca(type, nullptr, name);
             }
+            message = llvmAssistContext.add(name, value);
+            if (!message.success) {
+                printLocation(message.message);
+                exit(1);
+            }
+            llvmAssistContext.values.push_back(value);
         }
     }
 
-    void Identifier::analyze()
-    {
+    void Identifier::analyze() {
         analyzeContext.expressions.push_back(this);
     }
 
-    EXPRESSION_TYPE Identifier::getType()
-    {
+    EXPRESSION_TYPE Identifier::getType() {
         return getValue()->getType();
     }
 
-    Base* Identifier::getValue()
-    {
-        Context::Message<Base*> message = analyzeContext.get(name);
+    Base *Identifier::getValue() {
+        Context::Message<Base *> message = analyzeContext.get(name);
         if (message.success) {
             return message.value;
         } else {
